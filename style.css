@@ -20,6 +20,10 @@ footer: #c3b4b9;
 
 */
 
+body {
+    background-image: linear-gradient(to top, #ffba08, #dc2f02);
+}
+
 .wrapper {
     height: 100vh;
     display: flex;
@@ -43,6 +47,16 @@ footer: #c3b4b9;
 
 .span--2 {
     grid-column: span 2;
+}
+
+.display {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-end;
+    padding: 0 18px;
+    background-color: rgba(3, 7, 30, .8);
+    color: #e6e6e9;
 }
 
 .footer {
