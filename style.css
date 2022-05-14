@@ -3,7 +3,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-size: 24px;
+    font-size: 32px;
 }
 
 /* Colors */
@@ -16,6 +16,7 @@ calculator body: #fff3b0;
 footer: #370617;
 
 C:
+footer: #c3b4b9;
 
 */
 
@@ -28,12 +29,13 @@ C:
 }
 
 .container {
-    height: 100vh;
+    height: 80vh;
     display: grid;
     justify-content: center;
     align-content: center;
     grid-template-columns: repeat(4, 100px);
     grid-template-rows: minmax(120px, auto) repeat(5, 100px);
+    cursor: pointer;
 }
 
 .span--full {
@@ -42,4 +44,14 @@ C:
 
 .span--2 {
     grid-column: span 2;
+}
+
+.footer {
+    width: 100%;
+    text-align: center;
+    padding: 24px;
+    font-size: 24px;
+    background-color: rgba(55, 6, 23, .8);
+    color: #c3b4b9;
+    border-top: 3px solid #370617;
 }
