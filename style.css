@@ -58,6 +58,10 @@ body {
     color: #e6e6e9;
 }
 
+.previous {
+    opacity: .6;
+}
+
 .btn {
     outline: none;
     border: 2px solid #e6e6e9;
