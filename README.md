@@ -9,8 +9,7 @@ The plan:
     - if more are added then first evaluate the previous two
 
 What I managed:  
-- created a layout, styled and positioned WAY faster than ever before  
-- realized CSS Grid is very easy to use and versatile too (so far)  
+- created a layout, styled and positioned WAY faster than ever before    
 - combined CSS Grid and Flexbox  
 - kept the stylesheet ordered -> class selectors used almost always  
 
