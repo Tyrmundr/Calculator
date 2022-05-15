@@ -65,7 +65,11 @@ const calculator = {
             default:
                 alert("No operator was chosen, cannot calculate!");
         }
-        calculator.previous = result;
+        if(Number.isInteger(result)) {
+            calculator.previous = result;
+        } else {
+            calculator.previous = Number(result.toFixed(2));
+        }
         calculator.current = "";
     }
     
