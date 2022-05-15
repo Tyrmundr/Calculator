@@ -18,7 +18,7 @@ const calculator = {
 
     append(element) {
         if(element.target.innerText === "." && calculator.current.includes(".")) return;
-        
+
         calculator.current += element.target.innerText;
 
         updateUI();
@@ -27,12 +27,16 @@ const calculator = {
     operate(element) {
         if(calculator.current === "") return;
 
-        calculator.previous = calculator.current;
-        calculator.current = "";
-        calculator.operator = element.target.innerText;
+        if(calculator.previous === "") {
+            calculator.previous = calculator.current;
+            calculator.current = "";
+            calculator.operator = element.target.innerText;
+        }
 
+        calculator.compute();
+        calculator.operator = element.target.innerText;
         updateUI();
-    }
+    },
 
     /*
     delete() {
@@ -40,28 +44,31 @@ const calculator = {
     },
     */
 
-    /*
+    
     compute() {
         let result;
+        let prev = Number(this.previous);
+        let curr = Number(this.current);
         switch(this.operator) {
             case "+":
-                result = this.previous + this.current;
+                result = prev + curr;
                 break;
             case "-":
-                result = this.previous - this.current;
+                result = prev - curr;
                 break;
             case "/":
-                result = this.previous / this.current;
+                result = prev / curr;
                 break;
             case "*":
-                result = this.previous * this.current;
+                result = prev * curr;
                 break;
             default:
                 alert("No operator was chosen, cannot calculate!");
         }
-        return result;
+        calculator.previous = result;
+        calculator.current = "";
     }
-    */
+    
 }
 
 //Non-object functions
