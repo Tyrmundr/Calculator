@@ -25,16 +25,20 @@ const calculator = {
     },
 
     operate(element) {
-        if(calculator.current === "") return;
+        if((!calculator.current && !calculator.previous) || (!calculator.current && calculator.previous !== "")) return;
 
-        if(calculator.previous === "") {
+        if(calculator.current !== "" && !calculator.previous) {
             calculator.previous = calculator.current;
+            calculator.operator = element.target.innerText;
+            calculator.current = "";
+        }
+
+        if(calculator.previous !== "" && calculator.current !== "") {
+            calculator.previous = calculator.compute();
             calculator.current = "";
             calculator.operator = element.target.innerText;
         }
 
-        calculator.compute();
-        calculator.operator = element.target.innerText;
         updateUI();
     },
 
@@ -46,31 +50,29 @@ const calculator = {
 
     
     compute() {
-        let result;
-        let prev = Number(this.previous);
-        let curr = Number(this.current);
-        switch(this.operator) {
-            case "+":
-                result = prev + curr;
-                break;
+       let op = this.operator;
+       let prev = parseFloat(this.previous);
+       let curr = parseFloat(this.current);
+       let result;
+
+       switch(op) {
+           case "+":
+               result = prev + curr;
+               break;
             case "-":
-                result = prev - curr;
-                break;
+               result = prev - curr;
+               break;
+            case "*":
+               result = prev * curr;
+               break;
             case "/":
                 result = prev / curr;
                 break;
-            case "*":
-                result = prev * curr;
-                break;
-            default:
-                alert("No operator was chosen, cannot calculate!");
-        }
-        if(Number.isInteger(result)) {
-            calculator.previous = result;
-        } else {
-            calculator.previous = Number(result.toFixed(2));
-        }
-        calculator.current = "";
+       }
+
+
+       console.log(`Result is: ${result}`);
+       return result;
     }
     
 }
@@ -86,3 +88,12 @@ function updateUI() {
 numbers.forEach(number => number.addEventListener("click", calculator.append));
 
 operators.forEach(operator => operator.addEventListener("click", calculator.operate));
+
+btnEquals.addEventListener("click", () => {
+    if(calculator.current !== "" && calculator.previous !== "") {
+        calculator.current = calculator.compute();
+        calculator.operator = "";
+        calculator.previous = "";
+    }
+    updateUI();
+});
