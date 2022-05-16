@@ -1,4 +1,7 @@
 "use strict"
+//Globals
+const keyPresses = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."];
+const operatorPresses = ["+", "-", "/", "*"]
 
 //DOM
 const btnEquals = document.querySelector(".btn-equals");
@@ -29,14 +32,14 @@ const calculator = {
 
         if((calculator.current !== "" || calculator.current !== ".")&& !calculator.previous) {
             calculator.previous = calculator.current;
-            calculator.operator = element.target.innerText;
+            calculator.operator = typeof element === "string" ? element : element.target.innerText;
             calculator.current = "";
         }
 
         if(calculator.previous !== "" && calculator.current !== "." && calculator.current !== "") {
             calculator.previous = calculator.compute();
             calculator.current = "";
-            calculator.operator = element.target.innerText;
+            calculator.operator = typeof element === "string" ? element : element.target.innerText;
         }
 
         updateUI();
@@ -113,4 +116,27 @@ btnEquals.addEventListener("click", () => {
 
 btnClear.addEventListener("click", clearUI);
 
-btnDelete.addEventListener("click", calculator.deleteLastItem)
+btnDelete.addEventListener("click", calculator.deleteLastItem);
+
+document.addEventListener("keydown", (e) => {
+    if(keyPresses.includes(e.key)) {
+        if(e.key === "." && calculator.current.includes(".")) return;
+
+        calculator.current += e.key;
+
+        updateUI();
+    } else if(operatorPresses.includes(e.key)) {
+        calculator.operate(e.key);
+    } else if(e.key === "Delete") {
+        clearUI();
+    } else if(e.key === "Backspace") {
+        calculator.deleteLastItem();
+    } else if(e.key === "Enter") {
+        if(calculator.current !== "" && calculator.previous !== "") {
+            calculator.current = calculator.compute();
+            calculator.operator = "";
+            calculator.previous = "";
+        }
+        updateUI();
+    }
+})
