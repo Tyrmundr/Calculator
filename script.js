@@ -25,15 +25,15 @@ const calculator = {
     },
 
     operate(element) {
-        if((!calculator.current && !calculator.previous) || (!calculator.current && calculator.previous !== "")) return;
+        if(((calculator.current === "" && calculator.previous === "") || (calculator.current === ".")) || (!calculator.current && calculator.previous !== "")) return;
 
-        if(calculator.current !== "" && !calculator.previous) {
+        if((calculator.current !== "" || calculator.current !== ".")&& !calculator.previous) {
             calculator.previous = calculator.current;
             calculator.operator = element.target.innerText;
             calculator.current = "";
         }
 
-        if(calculator.previous !== "" && calculator.current !== "") {
+        if(calculator.previous !== "" && calculator.current !== "." && calculator.current !== "") {
             calculator.previous = calculator.compute();
             calculator.current = "";
             calculator.operator = element.target.innerText;
@@ -54,6 +54,7 @@ const calculator = {
        let prev = parseFloat(this.previous);
        let curr = parseFloat(this.current);
        let result;
+
 
        switch(op) {
            case "+":
