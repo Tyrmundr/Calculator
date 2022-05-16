@@ -72,8 +72,7 @@ const calculator = {
        }
 
 
-       console.log(`Result is: ${result}`);
-       return result;
+       return Number.isInteger(result) ? result : result.toFixed(2);
     }
     
 }
