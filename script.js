@@ -41,13 +41,6 @@ const calculator = {
 
         updateUI();
     },
-
-    /*
-    delete() {
-        //code
-    },
-    */
-
     
     compute() {
        let op = this.operator;
@@ -72,7 +65,16 @@ const calculator = {
        }
 
 
-       return Number.isInteger(result) ? result : result.toFixed(2);
+       if(result === Infinity || result === NaN) {
+           alert("That's a no go, champ, you can't divide by 0! Try again, will you?");
+       } else {
+           return Number.isInteger(result) ? result : result.toFixed(2);
+       }
+    },
+
+    deleteLastItem() {
+        calculator.current = calculator.current.slice(0, -1);
+        updateUI();
     }
     
 }
@@ -80,8 +82,19 @@ const calculator = {
 //Non-object functions
 
 function updateUI() {
+    if(calculator.current === undefined) {
+        calculator.current = "";
+    }
     currentTextElement.innerText = calculator.current;
     previousTextElement.innerText = `${calculator.previous} ${calculator.operator}`;
+}
+
+function clearUI() {
+    calculator.previous = "";
+    calculator.operator = "";
+    calculator.current = "";
+    currentTextElement.innerText  = "";
+    previousTextElement.innerText = "";
 }
 
 //Event listeners
@@ -97,3 +110,7 @@ btnEquals.addEventListener("click", () => {
     }
     updateUI();
 });
+
+btnClear.addEventListener("click", clearUI);
+
+btnDelete.addEventListener("click", calculator.deleteLastItem)
